@@ -1,16 +1,8 @@
+Implementation of horizontal elasticity of docker containers(IEEE paper).
 
-Python script to monitor the docker container CPU
+A script is made which automatically scales up or down the containers based on the CPU usage of containers. 
 
-It's just a Proof of concept done for auto scaling container based on the CPU utilization
+A load-balancer which uses weighted round robin algorithms to forward the requests to the running containers.
 
-It design for local as well as Swarm 1.2.5 on docker v1.11
-
-main.py is the primary file where entire logic is written
-
-If you running docker on TLS, you need to modify clientConn.py to specify the client certificates
-
-It uses Docker.stat API to get the container CPU utilization and scale up or down based on the CPU used
-
-You can extent to do crazy stuff like spawn new box with docker-machine, make it join the swarm and make it work
 
 
