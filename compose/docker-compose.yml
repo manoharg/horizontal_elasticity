@@ -1,0 +1,32 @@
+version: "2"
+services:
+  web:
+    build: .
+    
+    volumes:
+      - /home/manohar/Desktop/script/compose/html:/usr/share/nginx/html
+  
+    networks:
+      - front-tier
+      - back-tier
+
+  
+
+  lb:
+    image: dockercloud/haproxy
+    ports:
+      - 8080:80
+    links:
+      - web
+    networks:
+      - front-tier
+      - back-tier
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock 
+
+networks:
+  front-tier:
+    driver: bridge
+  back-tier:
+    driver: bridge
+  

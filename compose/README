@@ -1,0 +1,49 @@
+Load Balancing using Docker Containers
+---------------------------------------
+
+Author: Colton Smith
+Date: April 10, 2017
+
+---------------------------------------
+
+Description:
+
+For our project, the servers we have created are used to host html pages that our clients will request files from to be analyzed. Multiple instances of the servers will be spun up based on the input of startServerss.sh. Server containers are based on the basic image for an Nginx server for simplicity.
+
+---------------------------------------
+
+Files included:
+
+html (directory):
+
+	This file contains the html files that will be used by all servers. All servers that are spun up will reference this one directory to ensure consistent responses to the client.
+
+Dockerfile:
+
+	Contains the information needed for Docker to build a custom client image.
+
+startServers.sh:
+
+	This bash script will allow the user to enter the number of server instances they wish to spin up. It will ask for the number of servers the user wishes to instanciate as well as which port number it would like to begin at. Then, it will creating the servers such that their address corresponds to the starting port as well as the ports immediately after.
+
+stopServers.sh:
+
+	This bash script will allow the user to enter the number of server instances they wish to shutdown. It will ask for the number of servers the user wishes to shutdown, as well as the starting server number.
+
+getStats.sh:
+	
+	This bash script will obtain the statistics of the individual nginx servers as well as the load balancer if need be. It will ask for the number of servers you wish to obtain the stats of, the IP address of the servers, and the port number in which the series of servers begins.
+
+serverStats (directory):
+
+	This folder contains the statistics of each server after it has been run.
+
+default.conf:
+
+	This configuration file allows you to customize the nginx server. All that we have changed is the ability to access statistics. This allows you to go to http://IP.Address:port/nginx_status to view live statistics while the server is running.
+
+--------------------------------------
+
+Instructions for use:
+
+Docker version 17.03.X must be installed and running at the time of use. First, you must build the server image using the provided Dockerfile. To do so, run buildImage.sh. Then, run startServers.sh and input the number of servers you wish to spin up. It will also ask for the starting port you wish to use. It will then create servers with names "server1" - "serverN"(where N is the number of servers you started). When you are finished running the servers and want to shut them down, run stopServers.sh and enter the number of servers you wish to stop and the starting server number. To obtain stats after you have finished running clients, simply run getStats.sh and follow the prompts for the number of servers you want the stats of, the IP address of the servers, and the port number in which the series of servers begins.
